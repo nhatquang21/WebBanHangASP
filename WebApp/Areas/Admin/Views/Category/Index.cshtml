@@ -1,0 +1,55 @@
+﻿ @model List<WebApp.Data.ProductCategory>
+
+@{
+    ViewData["Title"] = "DANH MỤC";
+    Layout = "_AdminLayout";
+}
+
+
+
+<div>
+    <h1>@ViewData["Title"]</h1>
+      <button style="margin-bottom: 15px" type="button" class="btn btn-success" ><a  style="color:white;"href="@Url.Action("Create", "Category")">Tạo danh mục mới</a></button>
+    <table style="margin: 0 auto; width: 800px; border: 1px solid #343a40; border-collapse: collapse;font-size: 18px;">
+
+    <thead>
+      <tr>
+        <th style=" background-color: #087f5b; color: #fff;  width: 10%;  border: 1px solid #343a40; padding: 16px 24px; text-align: left;">   Tên danh mục </th>
+ 
+        <th  style=" background-color: #087f5b; color: #fff;  width: 25%;  border: 1px solid #343a40; padding: 16px 24px; text-align: left;">  Mô tả</th>
+        <th  style=" background-color: #087f5b; color: #fff;  width: 25%;  border: 1px solid #343a40; padding: 16px 24px; text-align: left;">  Action</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+     
+             @for(int i = 0; i< Model.Count; i++)
+                {
+    
+                     <tr>
+                        <partial name="~/Views/Shared/Partial/_CategoryItem.cshtml" model="Model[i]"/>       
+                        </tr>
+                }    
+      
+      
+      
+    </tbody>
+  </table>
+    @{
+
+    Func<int?,string> generateUrl = (int? _pagenumber)  => {
+        return Url.ActionLink("Index", null, new {page = _pagenumber});
+    };
+
+    var datapaging = new {
+        currentPage = ViewBag.pageNumber,
+        countPages  = ViewBag.totalPages,
+        generateUrl =  generateUrl
+    };
+
+}
+ <partial name="~/Views/Shared/Partial/_Paging.cshtml" model="datapaging" / > 
+  <div class="cleaner"></div>
+</div>
+
+

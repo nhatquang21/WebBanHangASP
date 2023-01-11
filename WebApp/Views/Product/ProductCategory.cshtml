@@ -1,0 +1,22 @@
+﻿@{
+    
+
+}
+@model List<WebApp.Data.Product>
+ @for(int i = 0; i< Model.Count; i++)
+    {
+      
+        if (i % 3 == 2){
+        <div  style="position: relative;" class="col col_14 product_gallery no_margin_right">
+            <partial name="~/Views/Shared/Partial/_ProductItem.cshtml" model="Model[i]"/>
+          </div>
+
+        }
+       
+        else  {
+            <div style="position: relative;" class="col col_14 product_gallery ">
+                <partial name="~/Views/Shared/Partial/_ProductItem.cshtml" model="Model[i]"/>
+            </div>
+        }
+       
+    }

@@ -1,0 +1,55 @@
+﻿<link href="~/assets/css/pagelist.css" rel="stylesheet" type="text/css" />
+@{
+ViewData["Title"] = "Home Page";
+Pager pager=new Pager();
+int pageNo=1;
+if(ViewBag.Pager!=null)
+{
+pager    = ViewBag.Pager;
+pageNo=pager.CurrentPage;
+}
+   
+    }
+   
+
+
+
+  @model List<WebApp.Data.Product>
+
+   <div id="featured-product">
+           
+            <div style="height: 355px" class="loop-product">               
+                @for(int i = 0; i< Model.Count; i++)
+                {
+      
+                    if (i % 3 == 2){
+                    <div  style="position: relative;" class="col col_14 product_gallery no_margin_right">
+                        <partial name="~/Views/Shared/Partial/_ProductItem.cshtml" model="Model[i]"/>
+                        </div>
+
+                    }
+       
+                    else  {
+                        <div style="position: relative;" class="col col_14 product_gallery ">
+                            <partial name="~/Views/Shared/Partial/_ProductItem.cshtml" model="Model[i]"/>
+                        </div>
+                    }
+       
+                }    
+        </div>
+          <div class="tablePagination">
+            @if (pager.TotalPages > 0)
+            {
+                    <ul style="margin-bottom: 15px;display: flex;justify-content: center;" class="pagination justify-content-end">
+                    @for(var pge=pager.StartPage;pge<=pager.EndPage;pge++)
+                    {
+                            <li class="page-item@(pge == pager.CurrentPage? "active":"")">
+                            <a class="page-link" asp-controller="Product" asp-action="FeatureProduct" asp-route-pg="@pge"> @pge </a>
+                                </li>
+                    }
+                </ul>
+            }
+
+        </div>
+</div>
+     

@@ -1,0 +1,48 @@
+﻿@model WebApp.Data.Product
+@{
+    int? DiscountPrice =  @Model.Price - @Model.Price * @Model.Discount / 100;
+}
+
+
+
+<a  href="@Url.Action("Detail", "Product", new { id = @Model.Id })"><img style="width:150px; height: 200px" src="~/assets/images/product/@Model.ImgUrl" alt="Product 03" /></a>
+        <h3>@Model.Name</h3>
+        @{
+            if(@Model.Discount != null){
+            <span class="product_price" style="
+                font-weight: 200;
+                text-decoration: line-through;
+                color: gray;
+            ">$ @Model.Price</span>
+            <span style="
+                margin-bottom: 17px;
+                color: #232323;
+                font-weight: 700;
+                text-align: center;
+                font-weight: 700;
+                font-size: 18px;
+            ">$ @DiscountPrice
+               
+
+             </span>
+            } else {
+                  <p class="product_price">$ @Model.Price</p>
+            }
+        }
+      <div>
+          <a  href="@Url.Action("AddToCart", "Product", new { id = @Model.Id })" class="add_to_cart">Add to Cart</a>
+          </div>
+         @{
+            if(@Model.Discount != null){
+                <div style="
+                    background: #f39d72;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    color: white !important;
+                    padding: 10px 7px;
+                    font-size: 16px;
+                    ">-@Model.Discount%</div>
+            }
+            }
+

@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApp.Data;
+@using WebApp.Models;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a  class="nav-link text-dark" asp-area="User" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+    </li>
+    <li class="nav-item"  style="
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+">
+        
+        <form>
+           <a  style="padding: 10px 15px; align-items: center, display: flex;" class="nav-link text-dark" href="@Url.Action("Logout", "User", new { Area = "" })">Đăng xuất</a>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="@Url.Action("Register", "User", new { Area = "" })">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="@Url.Action("Login", "User", new { Area = "" })">Login</a>
+    </li>
+}
+
+
+
+        

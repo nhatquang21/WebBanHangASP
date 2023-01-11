@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WebApp",
+    "\\WebApp\\Controllers",
+    "\\WebApp\\Data",
+    "\\WebApp\\Data\\Migrations",
+    "\\WebApp\\Views",
+    "\\WebApp\\Views\\Shared"
+  ],
+  "SelectedNode": "\\WebApp\\Data\\Category.cs",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,131 @@
+﻿
+<link href="~/assets/css/pagelist.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Home Page";
+    Pager pager=new Pager();
+    int pageNo=1;
+    if(ViewBag.Pager!=null)
+    {
+        pager    = ViewBag.Pager;
+        pageNo=pager.CurrentPage;
+    }
+
+}
+
+
+
+
+@model List<WebApp.Data.Product>
+
+<div id="featured-product">
+    <div style="background-color: #d7202c;">
+        <h2 style="
+                color: white;
+                padding: 17px 9px;
+                "   >Sản phẩm mới nhất </h2>
+    </div>
+    <div style="height: 355px" class="loop-product">        
+        @{
+            Console.Write(Model);
+        }
+                @for(int i =  Model.Count - 1; i >= 0; i--)
+                {
+      
+                    if (i % 3 == 2){
+                    <div style="position: relative;" class="col col_14 product_gallery no_margin_right">
+                        <partial name="~/Views/Shared/Partial/_ProductItem.cshtml" model="Model[i]"/>
+                        </div>
+
+                    }
+       
+                    else  {
+                        <div  style="position: relative;"                                                                                                                                                                                                        class="col col_14 product_gallery ">
+                            <partial name="~/Views/Shared/Partial/_ProductItem.cshtml" model="Model[i]"/>
+                        </div>
+                    }
+       
+                }    
+        </div>
+          <div class="tablePagination">
+            @if (pager.TotalPages > 0)
+            {
+                    <ul style="margin-bottom: 15px;display: flex;justify-content: center;" class="pagination justify-content-end">
+                    @for(var pge=pager.StartPage;pge<=pager.EndPage;pge++)
+                    {
+                            <li class="page-item@(pge == pager.CurrentPage? "active":"")">
+                            <a class="page-link" asp-controller="Home" asp-action="FeatureProduct" asp-route-pg="@pge"> @pge </a>
+                                </li>
+                    }
+                </ul>
+            }
+
+        </div>
+</div>
+     <div id="sale-product">
+     <div style="background-color: #d7202c;">
+                <h2 style="  color: white;   padding: 17px 9px; " >Sản phẩm khuyến mãi </h2>
+              
+      </div>
+        <vc:sale-pros ></vc:sale-pros>
+
+   </div>             
+  
+    
+                                                                                   
+
+                                                                            
+        
+
+ 
+    
+   
+
+
+
+@section Test
+{
+    <div id="product_slider">
+        <div id="SlideItMoo_outer">
+            <div id="SlideItMoo_inner">
+                <div id="SlideItMoo_items">
+                    <div class="SlideItMoo_element">
+                        <a href="#slide1" target="_parent">
+                            <img src="~/assets/images/gallery/01.jpg" alt="product 1" />
+                        </a>
+                    </div>
+                    <div class="SlideItMoo_element">
+                        <a href="#slide2" target="_parent">
+                            <img src="~/assets/images/gallery/02.jpg" alt="product 2" />
+                        </a>
+                    </div>
+                    <div class="SlideItMoo_element">
+                        <a href="#slide3" target="_parent">
+                            <img src="~/assets/images/gallery/03.jpg" alt="product 3" />
+                        </a>
+                    </div>
+                    <div class="SlideItMoo_element">
+                        <a href="#slide4" target="_parent">
+                            <img src="~/assets/images/gallery/04.jpg" alt="product 4" />
+                        </a>
+                    </div>
+                    <div class="SlideItMoo_element">
+                        <a href="#slide5" target="_parent">
+                            <img src="~/assets/images/gallery/05.jpg" alt="product 5" />
+                        </a>
+                    </div>
+                    <div class="SlideItMoo_element">
+                        <a href="#slide6" target="_parent">
+                            <img src="~/assets/images/gallery/06.jpg" alt="product 6" />
+                        </a>
+                    </div>
+                    <div class="SlideItMoo_element">
+                        <a href="#slide6" target="_parent">
+                            <img src="~/assets/images/gallery/07.jpg" alt="product 7" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cleaner"></div>
+    </div>
+}

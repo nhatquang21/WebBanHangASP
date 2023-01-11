@@ -1,0 +1,13 @@
+﻿
+
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    
+    Normally this would be emailed: <a id="confirm-link" href="@Url.Action("ConfirmEmail", "User", new { email = @TempData["confirmEmail"] })">Click here to confirm your account</a>
+</p>
+  

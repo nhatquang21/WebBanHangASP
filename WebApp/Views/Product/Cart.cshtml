@@ -1,0 +1,133 @@
+﻿
+@{
+   
+}
+
+@model List<WebApp.Models.CartItem>
+<h2>GIỎ HÀNG</h2>
+
+@if (Model.Count > 0) {
+  int? total = 0;
+  int stt = 1;
+  
+
+
+
+
+
+      <table width="700px" cellspacing="0" cellpadding="5">
+
+
+                   	  <tr bgcolor="#CCCCCC">
+                        	<th width="220" align="left">Image </th> 
+                        	<th width="180" align="left">Name </th> 
+                       	  	<th width="100" align="center">Quantity </th> 
+                        	<th width="60" align="center">Price </th> 
+                        	<th width="60" align="center">Total </th> 
+                        	<th width="90"> </th>
+                            
+                      </tr>
+        @foreach (var cartitem in Model)
+        {
+            int? truePrice;
+
+            if(@cartitem.product.Discount != null)
+            {
+                    truePrice = cartitem.product.Price - cartitem.product.Price * cartitem.product.Discount / 100;
+            }
+            else
+            {
+                    truePrice = cartitem.product.Price;
+            }
+             var thanhtien = cartitem.quantity * truePrice;
+             total += thanhtien;
+             <tr>
+                 	<td><img  style="width:200px; height 200px;" src="~/assets/images/product/@cartitem.product.ImgUrl" alt="image @cartitem.product.ImgUrl" /></td> 
+                        	<td>@cartitem.product.Name</td> 
+                            <td align="center"><input style="width:25px;" asp-for="@cartitem.quantity" id="@($"quantity-{cartitem.product.Id}")"/> </td>
+                             @{
+                                if(@cartitem.product.Discount != null){
+                                                    <td style="text-align: center;"><p style="text-decoration: line-through;"> $@cartitem.product.Price</p> <p style="font-weight: 800"> $@truePrice</p> </td>
+                                  }
+                                    else
+                                 {
+                                                      <td style="font-weight:800;text-align: center" >   <p style="font-weight: 800"> $@truePrice</p> </td> 
+                                }
+                             }
+    
+                           
+                            <td align="center">$@thanhtien </td>
+                            <td>
+                                <button style="   width: 80px;  background: #2fb5d2;   color: white;  border: none; padding: 6px 7px;margin-bottom: 10px;  font-size: 16px; "     class="btn btn-success updatecartitem"  data-productid="@cartitem.product.Id">Update</button>
+                                <a  style=" width: 80px;  background: red; border: none;  color: white; padding: 6px 7px;  margin-bottom: 10px;   font-size: 16px;"  asp-route="removecart" asp-route-productid="@cartitem.product.Id" class="btn btn-danger">Remove</a>    
+                                                      
+                             </td>
+             </tr>
+              
+        }
+                        
+                        <tr>
+                        	<td colspan="3" align="right"  height="40px">Have you modified your basket? Please click here to <a href="shoppingcart.html"><strong>Update</strong></a>&nbsp;&nbsp;</td>
+                            <td align="right" style="background:#ccc; font-weight:bold"> Total </td>
+                            <td align="right" style="background:#ccc; font-weight:bold">$@total </td>
+                            <td style="background:#ccc; font-weight:bold"> </td>
+						</tr>
+</table>
+     
+
+  <form asp-action="Checkout" asp-route-priceTotal=@total asp-route-quantity=0 method="POST">
+    <input type="submit" value="Checkout" class="btn btn-primary" />
+            <div class="cleaner h20"></div>
+            <div class="continueshopping"><a href="javascript:history.back()" class="more">Continue Shopping</a></div>    
+  
+  </form>
+
+    
+         
+                    	
+     
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+      @section Scripts {
+        <script>
+          $(document).ready(function () {
+              $(".updatecartitem").click(function (e) {
+                 
+                  e.preventDefault;
+                   console.log('Updating...')
+                  var productid = $(this).attr("data-productid");
+                  var quantity = $("#quantity-" + productid).val();
+                  $.ajax({
+                      type: "POST",
+                      url:"@Url.RouteUrl("updatecart")",
+                      data: {
+                          productid: productid,
+                          quantity:quantity
+                      },
+                      success: function (result) {
+                          window.location.href = "@Url.RouteUrl("cart")";
+                      }
+                  });
+              });
+          });
+        </script>
+      }
+
+}
+else {
+  <p class="alert alert-danger">Giỏ hàng trống</p>
+}

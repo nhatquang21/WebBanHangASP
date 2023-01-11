@@ -1,0 +1,9 @@
+﻿@model WebApp.Data.ProductCategory
+
+  <th style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;"  > @Model.Name </th>
+    <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">@Model.Description </td>
+    <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">
+      
+        <button type="button" class="btn btn-primary"><a  style="color:white;"href="@Url.Action("Edit", "Category", new { id = @Model.Id })">Update</a></button>
+        <button type="button" class="btn btn-danger"><a  style="color:white;"href="@Url.Action("Delete", "Category", new { id = @Model.Id })">Delete</a></button>
+    </td>

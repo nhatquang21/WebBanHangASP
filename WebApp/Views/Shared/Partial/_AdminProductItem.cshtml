@@ -1,0 +1,29 @@
+﻿@model WebApp.Data.Product
+@{
+    int? DiscountPrice =  @Model.Price - @Model.Price * @Model.Discount / 100;
+}
+
+
+     <th style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;"  > @Model.Name </th>
+    <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">@Model.Description </td>
+     <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">@Model.Category.Name </td>
+@{
+    if(@Model.Discount != null)
+    {
+        <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">@Model.Discount % </td>
+        <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;"><span class="product_price" style=" font-weight: 200;  text-decoration: line-through; color: gray;"> $ @Model.Price</span>  <span style=" color: #232323; font-weight: 700;  font-size: 18px;  ">$ @DiscountPrice </span> </td>
+        
+    }
+    else
+    {
+        <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">Không giảm giá </td>
+          <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">$@Model.Price </td>
+    }
+
+}
+       
+    <td  style=" border: 1px solid #343a40;padding: 16px 24px;  text-align: left;">
+      
+        <button type="button" class="btn btn-primary"><a  style="color:white;"href="@Url.Action("Edit", "Product", new { id = @Model.Id })">Update</a></button>
+        <button type="button" class="btn btn-danger"><a  style="color:white;"href="@Url.Action("Delete", "Product", new { id = @Model.Id })">Delete</a></button>
+    </td>

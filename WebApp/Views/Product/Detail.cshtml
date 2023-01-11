@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Detail Page";
+    int count = 0;
+    int? price = @Model.Price - @Model.Price * @Model.Discount / 100;
+
+}
+@model WebApp.Data.Product
+   
+
+
+        	<h2>Product Details</h2>
+            <div class="col col_13">
+        	<img style="
+              width: 300px;
+              height: 280px;
+            " src="~/assets/images/product/@Model.ImgUrl" alt="Image @Model.Id" />
+            </div>
+            <div class="col col_13 no_margin_right">
+                <table>
+                    <tr>
+                        <td height="30" width="160">Name:</td>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td height="30" width="160">Price:</td>
+            @{
+                if(@Model.Discount != null)
+                {
+                        <td>$<span style="
+                            text-decoration: line-through;
+                        ">@Model.Price</span> <span style="
+                            color: #f39d72;  font-weight: 800; font-size: 16px;
+                        ">$@price</span></td>
+                }
+                else
+                {
+                        <td style="font-weight: 800; font-size: 16px;">$@Model.Price</td>
+                }
+            }
+                       
+                       
+                    </tr>
+                    <tr>
+                        <td height="30">Availability:</td>
+                        <td>In Stock</td>
+                    </tr>
+                   
+                    <tr><td height="30">Quantity</td><td><input type="number" value="1" style="width: 40px; text-align: right" /></td></tr>
+                </table>
+                <div class="cleaner h20"></div>
+                <a  href="@Url.Action("AddToCart", "Product", new { id = @Model.Id })" class="add_to_cart">Add to Cart</a>
+			</div>
+            <div class="cleaner h30"></div>
+            
+            <h5><strong>Product Description</strong></h5>
+            <p>@Model.Description</p>	
+            
+            <div class="cleaner h50"></div>
+            
+          
+            
+            <div class="cleaner"></div>
+        </div> <!-- END of content -->
+        <div class="cleaner"></div>
+   
